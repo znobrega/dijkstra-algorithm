@@ -1,6 +1,5 @@
-const Graph = require("./Graph");
-const Dijkstra = require("./Dijkstra");
-const fs = require("fs");
+const Graph = require("./src/Graph");
+const Dijkstra = require("./src/Dijkstra");
 
 console.log(
   "=================================================================="
