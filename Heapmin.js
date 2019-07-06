@@ -129,13 +129,12 @@ class MinHeap {
   add(element) {
     this.size++;
     this.heap.unshift(element);
-    console.log(`Size: ${this.size} Element: ${element}`);
     this.minHeapify(0);
   }
 
   getAllHeapPosition() {
     for (let i = 0; i < this.size; i++) {
-      console.log(this.heap[i]);
+      //console.log(this.heap[i]);
       this.heap[i].heapPosition = i;
     }
   }

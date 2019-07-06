@@ -8,9 +8,9 @@ class Dijkstra {
     w = peso
   */
   constructor(g, s) {
-    this.result = 0;
+    //this.result = 0;
     this.complete(g, s);
-    console.log(g);
+    //console.log(g);
   }
 
   initializeSingleSource(g, s) {
@@ -19,18 +19,11 @@ class Dijkstra {
       g.vertices[i].id = i;
       g.vertices[i].key = 5;
       g.vertices[i].predec = -1;
-      g.vertices[i].heapPosition = -1;
     }
 
     g.vertices[s].key = 0;
   }
 
-  /**
-   * PRECISA USAR O INCREASEE
-   * PRECISA USAR O INCREASEE
-   * PRECISA USAR O INCREASEE
-   * PRECISA USAR O INCREASEE
-   */
   relax(Q, nextVertex, currentVertex, weight) {
     if (nextVertex.key > currentVertex.key + weight) {
       nextVertex.key = currentVertex.key + weight;
@@ -39,11 +32,22 @@ class Dijkstra {
     }
   }
 
+  result(finalVertices) {
+    finalVertices.forEach(v => {
+      if (v.id === finalVertices.length - 1) {
+        console.log(
+          `GRANDE DIJKSTRA = key: ${v.key} id: ${v.id} predec: ${v.predec}`
+        );
+      }
+    });
+  }
+
   complete(g, s) {
     this.initializeSingleSource(g, s);
 
     const S = [];
-    const Q = new Heap([...g.vertices]);
+    //const Q = new Heap([...g.vertices]);
+    const Q = new Heap(g.vertices);
     Q.getAllHeapPosition();
 
     while (Q.size > 0) {
@@ -52,17 +56,20 @@ class Dijkstra {
 
       for (let i = 0; i < Q.size; i++) {
         const ui = u.id;
-        //const v = Q.heap[i].id;
+        const v = Q.heap[i].id;
 
-        if (Q.heap[i].key > u.key + g.edges[ui][i]) {
+        if (Q.heap[i].key > u.key + g.edges[ui][v]) {
           Q.heap[i].predec = ui;
-          Q.decreaseKey(i, u.key + g.edges[u.id][i]);
+          Q.decreaseKey(i, u.key + g.edges[ui][v]);
         }
       }
     }
-    console.log(S);
-    S.forEach(v => (this.result += v.key));
-    console.log(`RESULTADOOO = ${this.result}`);
+    this.result(S);
+    //this.result(S);
+
+    // S.forEach(v =>
+    //   console.log(`RESULTADOOO = key: ${v.key} id: ${v.id} predec: ${v.predec}`)
+    // );
   }
 }
 

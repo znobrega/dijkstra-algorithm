@@ -4,14 +4,14 @@ const Vertex = require("./Vertex");
 
 class Graph {
   constructor(v, a) {
-    this.vertices = new Array(a);
+    this.vertices = new Array(v);
     this.edges = new Array(v);
 
     for (let i = 0; i < this.edges.length; i++) {
       this.edges[i] = new Array(v);
     }
 
-    for (let i = 0; i < a; i++) {
+    for (let i = 0; i < v; i++) {
       this.vertices[i] = new Vertex(i);
     }
   }
