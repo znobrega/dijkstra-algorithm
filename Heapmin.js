@@ -33,14 +33,8 @@ class MinHeap {
 
   swap(i, smallest) {
     const aux = this.heap[smallest];
-    const auxPositionOne = this.heap[smallest].heapPosition;
-    const auxPositionTwo = this.heap[i].heapPosition;
-
     this.heap[smallest] = this.heap[i];
-    this.heap[smallest].heapPosition = auxPositionOne;
-
     this.heap[i] = aux;
-    this.heap[i].heapPosition = auxPositionTwo;
   }
 
   minHeapify(i) {
@@ -59,7 +53,6 @@ class MinHeap {
 
     if (smallest !== i) {
       this.swap(i, smallest);
-      this.heap[i].heapPosition = i;
       this.minHeapify(smallest);
     }
   }
@@ -93,7 +86,6 @@ class MinHeap {
     this.heap.pop();
     this.size--;
     //this.length--;
-    this.getAllHeapPosition();
 
     this.minHeapify(0);
 
@@ -131,37 +123,6 @@ class MinHeap {
     this.heap.unshift(element);
     this.minHeapify(0);
   }
-
-  getAllHeapPosition() {
-    for (let i = 0; i < this.size; i++) {
-      //console.log(this.heap[i]);
-      this.heap[i].heapPosition = i;
-    }
-  }
 }
 
 module.exports = MinHeap;
-//export default MinHeap;
-// const one = new MinHeap();
-// console.log(one);
-
-// one.add(20);
-// one.add(14);
-// one.add(1);
-// one.add(9);
-// one.add(5);
-// one.add(6);
-// one.add(4);
-
-// console.log(one);
-
-// const two = new MinHeap([20, 14, 1, 9, 5, 6, 4]);
-
-// console.log("Two");
-// console.log(two);
-
-// two.heapSort();
-// console.log(two);
-
-// two.increaseKey(3, 100);
-// console.log(two);

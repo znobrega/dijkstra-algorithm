@@ -1,39 +1,25 @@
-const graph = require("./Graph");
+const Graph = require("./Graph");
 const Dijkstra = require("./Dijkstra");
 const fs = require("fs");
 
 console.log(
   "=================================================================="
 );
-console.log("Hello, this is the Djikstra algorithm");
+console.log(
+  "=                 This is the Djikstra algorithm                 ="
+);
 console.log(
   "=================================================================="
 );
 
-const file = fs.readFileSync("./files/dij10.txt");
+const graphMatrix10 = new Graph("./files/dij10.txt");
+const dij10 = new Dijkstra(graphMatrix10, 0);
 
-const arrayInt = file
-  .toString()
-  .split(/\s+/)
-  .filter(words => words.length > 0)
-  .map(str => parseInt(str));
+const graphMatrix20 = new Graph("./files/dij20.txt");
+const dij20 = new Dijkstra(graphMatrix20, 0);
 
-const size = arrayInt[0];
+const graphMatrix30 = new Graph("./files/dij40.txt");
+const dij40 = new Dijkstra(graphMatrix30, 0);
 
-const graphMatrix = new graph(size, size - 1);
-
-let z = 1;
-for (let i = 0; i < size; i++) {
-  for (let j = 0 + i; j < size; j++) {
-    if (i === j) {
-      graphMatrix.edges[i][j] = 0;
-      continue;
-    }
-
-    graphMatrix.edges[i][j] = arrayInt[z];
-    graphMatrix.edges[j][i] = arrayInt[z];
-    z++;
-  }
-}
-
-const dij10 = new Dijkstra(graphMatrix, 0);
+const graphMatrix40 = new Graph("./files/dij50.txt");
+const dij50 = new Dijkstra(graphMatrix40, 0);

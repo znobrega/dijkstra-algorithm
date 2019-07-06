@@ -1,16 +1,9 @@
 const Heap = require("./Heapmin");
 
 class Dijkstra {
-  // initialize-single-source is workin on Graph.js
-
-  /* 
-    G = graph
-    w = peso
-  */
   constructor(g, s) {
-    //this.result = 0;
+    this.path = "";
     this.complete(g, s);
-    //console.log(g);
   }
 
   initializeSingleSource(g, s) {
@@ -24,20 +17,21 @@ class Dijkstra {
     g.vertices[s].key = 0;
   }
 
-  relax(Q, nextVertex, currentVertex, weight) {
-    if (nextVertex.key > currentVertex.key + weight) {
-      nextVertex.key = currentVertex.key + weight;
-
-      nextVertex.predec = currentVertex.id;
-    }
-  }
-
   result(finalVertices) {
     finalVertices.forEach(v => {
       if (v.id === finalVertices.length - 1) {
-        console.log(
-          `GRANDE DIJKSTRA = key: ${v.key} id: ${v.id} predec: ${v.predec}`
-        );
+        console.log(`Shortest path: ${v.key}`);
+        this.path = `${v.id}` + this.path;
+        this.showPath(finalVertices, v.predec);
+      }
+    });
+  }
+
+  showPath(finalVertices, predec) {
+    finalVertices.forEach(vertice => {
+      if (vertice.id === predec) {
+        this.path = `${vertice.id}->` + this.path;
+        this.showPath(finalVertices, vertice.predec);
       }
     });
   }
@@ -48,28 +42,23 @@ class Dijkstra {
     const S = [];
     //const Q = new Heap([...g.vertices]);
     const Q = new Heap(g.vertices);
-    Q.getAllHeapPosition();
 
     while (Q.size > 0) {
       const u = Q.extractMin();
       S.push(u);
 
       for (let i = 0; i < Q.size; i++) {
-        const ui = u.id;
         const v = Q.heap[i].id;
-
-        if (Q.heap[i].key > u.key + g.edges[ui][v]) {
-          Q.heap[i].predec = ui;
-          Q.decreaseKey(i, u.key + g.edges[ui][v]);
+        //RELAX
+        if (Q.heap[i].key > u.key + g.edges[u.id][v]) {
+          Q.heap[i].predec = u.id;
+          Q.decreaseKey(i, u.key + g.edges[u.id][v]);
         }
       }
     }
+    console.log(`Filename: ${g.fileName.substring(8)}`);
     this.result(S);
-    //this.result(S);
-
-    // S.forEach(v =>
-    //   console.log(`RESULTADOOO = key: ${v.key} id: ${v.id} predec: ${v.predec}`)
-    // );
+    console.log(`Shortest Route: ${this.path}\n`);
   }
 }
 
