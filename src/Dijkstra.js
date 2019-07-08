@@ -47,9 +47,11 @@ class Dijkstra {
       S.push(u);
 
       for (let i = 0; i < Q.size; i++) {
+        const isEdge = g.edges[u.id][v] > 0;
         const v = Q.heap[i].id;
+
         //RELAX
-        if (Q.heap[i].key > u.key + g.edges[u.id][v]) {
+        if (isEdge && Q.heap[i].key > u.key + g.edges[u.id][v]) {
           Q.heap[i].predec = u.id;
           Q.decreaseKey(i, u.key + g.edges[u.id][v]);
         }
@@ -58,6 +60,7 @@ class Dijkstra {
     console.log(`Filename: ${g.fileName.substring(8)}`);
     this.result(S);
     console.log(`Shortest Route: ${this.path}\n`);
+    //console.log(g.vertices);
   }
 }
 
