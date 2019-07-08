@@ -7,10 +7,9 @@ class Dijkstra {
   }
 
   initializeSingleSource(g, s) {
-    let size = g.vertices.length;
-    for (let i = size; i < size; i++) {
+    for (let i = 0; i < g.vertices.length; i++) {
       g.vertices[i].id = i;
-      g.vertices[i].key = 5;
+      g.vertices[i].key = Number.MAX_SAFE_INTEGER;
       g.vertices[i].predec = -1;
     }
 
